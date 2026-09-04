@@ -1,0 +1,109 @@
+# Casos de prueba propios para validación contra el toolchain RISC-V
+
+# ============================================================
+# FORMATO R
+# ============================================================
+
+# --- add ---
+add x1, x2, x3
+add x10, x0, x31
+add x31, x31, x1
+
+# --- sub ---
+sub x1, x2, x3
+sub x15, x20, x5
+sub x30, x0, x31
+
+# --- and ---
+and x1, x2, x3
+and x10, x15, x20
+and x31, x0, x31
+
+# --- or ---
+or x1, x2, x3
+or x12, x8, x25
+or x31, x31, x0
+
+
+# ============================================================
+# FORMATO I - ARITMÉTICAS
+# ============================================================
+
+# --- addi ---
+# inmediato positivo
+addi x1, x2, 100
+# inmediato negativo
+addi x10, x5, -100
+# límite positivo de 12 bits con signo
+addi x31, x0, 2047
+
+# --- andi ---
+# inmediato positivo
+andi x1, x2, 255
+# inmediato negativo
+andi x15, x20, -500
+# límite negativo de 12 bits con signo
+andi x31, x31, -2048
+
+
+# ============================================================
+# FORMATO I - LOADS
+# ============================================================
+
+# --- lw ---
+# desplazamiento positivo
+lw x1, 100(x2)
+# desplazamiento negativo
+lw x10, -100(x5)
+# límite positivo
+lw x31, 2047(x0)
+
+# --- lb ---
+# desplazamiento positivo
+lb x1, 50(x2)
+# desplazamiento negativo
+lb x20, -500(x10)
+# límite negativo
+lb x31, -2048(x31)
+
+
+# ============================================================
+# FORMATO S
+# ============================================================
+
+# --- sw ---
+# desplazamiento positivo
+sw x1, 100(x2)
+# desplazamiento negativo
+sw x10, -100(x5)
+# límite positivo
+sw x31, 2047(x0)
+
+# --- sb ---
+# desplazamiento positivo
+sb x1, 50(x2)
+# desplazamiento negativo
+sb x20, -500(x10)
+# límite negativo
+sb x31, -2048(x31)
+
+
+# ============================================================
+# FORMATO B
+# ============================================================
+
+# --- beq ---
+# desplazamiento positivo
+beq x1, x2, 8
+# desplazamiento negativo
+beq x10, x5, -16
+# límite positivo representable y alineado
+beq x31, x0, 4094
+
+# --- bne ---
+# desplazamiento positivo
+bne x1, x2, 16
+# desplazamiento negativo
+bne x20, x10, -32
+# límite negativo representable
+bne x31, x31, -4096

@@ -50,3 +50,31 @@ El ensamblado de referencia se realizó utilizando `riscv64-unknown-elf-as` con 
 - Casos incorrectos: 0
 
 Los 36 casos de prueba coincidieron con la codificación obtenida mediante el toolchain oficial de RISC-V.
+
+## Pruebas adicionales
+
+Además de los 36 casos propios comparados contra el toolchain oficial, se comprobó el funcionamiento del codificador con los vectores de ejemplo proporcionados en el kit del proyecto. Los 36 vectores produjeron la codificación esperada.
+
+También realicé algunas pruebas con entradas inválidas para comprobar que el programa detectara errores en lugar de generar una codificación incorrecta.
+
+| Prueba | Entrada | Resultado |
+|---|---|---|
+| Registro fuera de rango | `add x32, x1, x2` | Entrada rechazada correctamente |
+| Inmediato fuera de rango | `addi x1, x2, 2048` | Entrada rechazada correctamente |
+| Desplazamiento B impar | `beq x1, x2, 3` | Entrada rechazada correctamente |
+| Instrucción no soportada | `mul x1, x2, x3` | Entrada rechazada correctamente |
+| Sintaxis de memoria incorrecta | `lw x1, 8x2` | Entrada rechazada correctamente |
+
+En los cinco casos el programa mostró el error correspondiente y no generó una línea `HEX:` para la entrada inválida. La siguiente captura muestra la ejecución de estas pruebas:
+
+![Pruebas de entradas inválidas](IMG/casos_errores.png)
+
+**Figura 1.** Pruebas de manejo de entradas inválidas realizadas desde WSL.
+
+### Resumen de las pruebas
+
+| Validación | Resultado |
+|---|---:|
+| Casos propios contra el toolchain | 36/36 |
+| Vectores de ejemplo | 36/36 |
+| Entradas inválidas detectadas | 5/5 |
